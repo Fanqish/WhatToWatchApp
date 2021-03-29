@@ -10,3 +10,7 @@ class AppUrls {
   static String privacy =
       "https://fanqish.github.io/apps-privacy-policy/whattowatch";
 }
+
+const String anyImgUrl = "https://www.themoviedb.org/t/p/w500";
+const String anyBrokenImgUrl =
+    "https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png";

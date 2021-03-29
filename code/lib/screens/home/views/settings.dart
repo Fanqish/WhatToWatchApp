@@ -1,5 +1,6 @@
 import 'package:code/consts/global.dart';
 import 'package:code/consts/themes.dart';
+import 'package:code/utils/database.dart';
 import 'package:code/utils/online.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -54,22 +55,24 @@ class SettingsView extends StatelessWidget {
                 enabled: false,
               ),
               ListTile(
-                title: (Text("Dark Mode",
-                    style: TextStyle(fontWeight: FontWeight.w600))),
-                trailing: Obx(
-                  () => Switch(
-                    activeColor: Get.context.theme.accentColor,
-                    onChanged: (v) {
-                      isdark.value = v;
-                      Get.changeThemeMode(
-                          isdark.value ? ThemeMode.dark : ThemeMode.light);
-                    },
-                    value: isdark.value,
-                  ),
+                onTap: () {
+                  settings.put("isdark", Get.isDarkMode ? false : true);
+                  Get.changeThemeMode(
+                      !Get.isDarkMode ? ThemeMode.dark : ThemeMode.light);
+                },
+                title: (Text("Dark Mode", style: settingTextTheme)),
+                trailing: Switch(
+                  activeColor: Get.context.theme.accentColor,
+                  onChanged: (v) {
+                    settings.put("isdark", Get.isDarkMode ? false : true);
+                    Get.changeThemeMode(
+                        !Get.isDarkMode ? ThemeMode.dark : ThemeMode.light);
+                  },
+                  value: Get.isDarkMode,
                 ),
               ),
               ListTile(
-                enabled: isdark.value ? false : true,
+                enabled: Get.isDarkMode ? false : true,
                 onTap: () {
                   Get.dialog(
                     AlertDialog(
@@ -77,10 +80,19 @@ class SettingsView extends StatelessWidget {
                       contentPadding: const EdgeInsets.all(0.0),
                       content: SingleChildScrollView(
                         child: MaterialPicker(
-                          pickerColor: mainColor.value,
+                          pickerColor: Get.theme.accentColor,
                           onColorChanged: (color) {
-                            mainColor.value = color;
-                            Get.changeTheme(Themes().light);
+                            settings.put("mainColor", color.value);
+                            Get.changeTheme(Themes().light.copyWith(
+                                  primaryColor:
+                                      Color((settings.get("mainColor"))),
+                                  primaryColorLight: Color((settings.get(
+                                    "mainColor",
+                                  ))),
+                                  accentColor: Color((settings.get(
+                                    "mainColor",
+                                  ))),
+                                ));
                           },
                         ),
                       ),
@@ -89,18 +101,18 @@ class SettingsView extends StatelessWidget {
                 },
                 title: (Text(
                   "App Color ",
-                  style: TextStyle(fontWeight: FontWeight.w600),
+                  style: settingTextTheme,
                 )),
-                trailing: Obx(() => Container(
-                      transform: Matrix4.translationValues(-10, 0, 0),
-                      height: 25,
-                      width: 40,
-                      decoration: BoxDecoration(
-                          color: isdark.value
-                              ? Get.context.theme.disabledColor
-                              : mainColor.value,
-                          borderRadius: BorderRadius.circular(25)),
-                    )),
+                trailing: Container(
+                  transform: Matrix4.translationValues(-10, 0, 0),
+                  height: 25,
+                  width: 40,
+                  decoration: BoxDecoration(
+                      color: Get.isDarkMode
+                          ? Get.context.theme.disabledColor
+                          : Get.theme.accentColor,
+                      borderRadius: BorderRadius.circular(25)),
+                ),
               ),
               ListTile(
                 title: Text("More"),
@@ -134,7 +146,7 @@ class LinkListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: (Text(title, style: TextStyle(fontWeight: FontWeight.w600))),
+      title: (Text(title, style: settingTextTheme)),
       onTap: () => link == "share"
           ? Share.share(
               "Feel Bored And Want To Watch Something Awesome. Check ${AppUrls.rate}")
