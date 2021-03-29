@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:code/controller.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 // import 'package:flutter/material.dart';
@@ -11,16 +12,17 @@ import 'package:url_launcher/url_launcher.dart';
 void openURL(String url) async =>
     await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
 
-var internet = checkInternet().obs;
 // ignore: missing_return
-Future<bool> checkInternet() async {
-  try {
-    final result = await InternetAddress.lookup('google.com');
-    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-      return true;
+void checkInternet() async {
+  if (!GetPlatform.isWeb) {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        Get.find<AppController>().internet.value = true;
+      }
+    } on SocketException catch (_) {
+      Get.find<AppController>().internet.value = false;
     }
-  } on SocketException catch (_) {
-    return false;
   }
 }
 /*---------------------Analytics---------------------*/

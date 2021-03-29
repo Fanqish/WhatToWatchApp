@@ -1,20 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 const kAnalyticsId = "";
-const kAppName = "";
-const kAppVer = "";
+const kAppName = "What To Watch?";
+const kAppVer = "1.0";
 
 class AppUrls {
-  static String rate = "";
-  static String more = "";
-  static String support = "";
-  static String privacy = "";
+  static String rate = "https://onelink.to/whattowatch";
+  static String more = "https://onelink.to/our-apps";
+  static String support =
+      "https://docs.google.com/forms/d/e/1FAIpQLSdSnRjCiukc74OkPnp_WQoGgbKm4fIIpK2Ry9AYPVa9GS5cuA/viewform?usp=pp_url&entry.1531633597=$kAppName";
+  static String privacy =
+      "https://fanqish.github.io/apps-privacy-policy/whattowatch";
 }
-
-double kScreenHeight = Get.context.height - kBottomNavigationBarHeight;
-double kScreenWidth = Get.context.width;
-
-// Settings View
-double kSettingsTitleContainerHeight = kScreenHeight * .35;
-double kSettingsContainerHeight = kScreenHeight - kSettingsTitleContainerHeight;

@@ -11,13 +11,43 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  animations: ^2.0.0
+  auto_size_text: ^2.1.0
+  avatar_glow: ^2.0.1
+  carousel_slider: ^3.0.0
   flutter_colorpicker: ^0.4.0
+  flutter_custom_clippers: ^1.1.2
+  flutter_fadein: ^2.0.0
   get: ^3.26.0
+  http: ^0.13.1
   share_plus: ^2.0.0
+  smooth_star_rating: ^1.1.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: null
+  flutter_native_splash: null
 
 flutter:
   uses-material-design: true
+
+# Run >>> flutter pub run flutter_launcher_icons:main
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "Logo.png"
+
+# Run >>> flutter pub run flutter_native_splash:create
+flutter_native_splash:
+  color: "#ffffff"
+  image: splash.png
+  color_dark: "#303030"
+  image_dark: Splash.png
+  android: true
+  ios: true
+  web: true
+  #android_gravity: center
+  #ios_content_mode: center
+  #web_image_mode: center
+  #fullscreen: true

@@ -21,16 +21,18 @@ class MyApp extends StatelessWidget {
         ApplicationSwitcherDescription(
             primaryColor: context.theme.accentColor.value, label: kAppName));
     SystemChrome.setEnabledSystemUIOverlays([]);
-    return Obx(
-      () => GetMaterialApp(
-        theme: Themes().light,
-        darkTheme: Themes.dark,
-        themeMode: ThemeMode.light, // themeModeNow.value,
-        initialBinding: AppControllerBinder(),
-        initialRoute: AppPages.initial,
-        getPages: AppPages.routes,
-        debugShowCheckedModeBanner: false,
-      ),
+    return GetMaterialApp(
+      theme: Themes().light,
+      darkTheme: Themes().dark,
+      themeMode: isdark == null
+          ? ThemeMode.system
+          : isdark.value == true
+              ? ThemeMode.dark
+              : ThemeMode.light,
+      initialBinding: AppControllerBinder(),
+      initialRoute: AppPages.initial,
+      getPages: AppPages.routes,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

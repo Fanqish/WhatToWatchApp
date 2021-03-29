@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-RxBool isdark = false.obs;
+RxBool isdark = (ThemeMode.system == ThemeMode.dark ? true : false).obs;
 Rx<Color> mainColor = Color(0XFF6C5CD5).obs;
 
 class Themes {
@@ -15,11 +15,9 @@ class Themes {
         showUnselectedLabels: false,
         unselectedItemColor: Colors.white60,
       ));
-  static final dark = ThemeData.dark().copyWith(
+  final dark = ThemeData.dark().copyWith(
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
     showSelectedLabels: false,
-    selectedItemColor: Colors.white,
     showUnselectedLabels: false,
-    unselectedItemColor: Colors.white60,
   ));
 }

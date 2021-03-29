@@ -1,4 +1,4 @@
-package com.fanqish.code
+package com.fanqish.whattowatch
 
 import io.flutter.embedding.android.FlutterActivity
 
