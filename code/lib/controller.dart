@@ -3,12 +3,12 @@ import 'dart:math';
 import 'package:get/get.dart';
 import 'consts/global.dart';
 import 'models/show_model.dart';
+import 'utils/database.dart';
 import 'utils/online.dart';
 
 class AppController extends GetxController {
   // Main Vals
   Rx<Show> nowShow = Show().obs;
-  RxList watchLater = <Show>[].obs;
   List screenshots;
   // Techinical Vals
   RxBool ready = false.obs;
@@ -18,7 +18,7 @@ class AppController extends GetxController {
   void getShow() async {
     bool error = false;
     ready.value = false;
-    // checkInternet();
+    checkInternet();
     String randomizeTVMovie = Random().nextBool() ? "movie" : "tv";
 
     String requestRandomMovieTV =
@@ -33,9 +33,6 @@ class AppController extends GetxController {
     screenshots = jsonDecode(
         (await GetConnect().get(requestScreenshots)).bodyString)["backdrops"];
 
-    // print(jsonDecode((await GetConnect().get(requestScreenshots)).bodyString)[
-    //         "backdrops"]
-    //     .runtimeType);
     try {
       nowShow(Show(
           id: random["id"],
@@ -46,7 +43,6 @@ class AppController extends GetxController {
               (random["original_language"] != null
                   ? " [${random["original_language"]}]".toUpperCase()
                   : ""),
-          genres: random["gernes"],
           rate: random["vote_average"] ?? 0.0,
           poster:
               random["poster_path"] != null || random["poster_path"] != "null"
@@ -59,7 +55,6 @@ class AppController extends GetxController {
           overview: random["overview"] != null || random["overview"] != "null"
               ? random["overview"]
               : "Show Description Not Found"));
-      print(nowShow.value.poster);
     } catch (e) {
       error = true;
       getShow();
@@ -70,17 +65,20 @@ class AppController extends GetxController {
   }
 
   void bookmarking() {
-    found.value
-        ? watchLater.remove(nowShow.value)
-        : watchLater.add(nowShow.value);
+    if (found.value) {
+      shows.delete(nowShow.value.id);
+    } else {
+      shows.put(nowShow.value.id, nowShow.value.toJson());
+      // downloadPoster();
+    }
     checkBookmark();
   }
 
   void checkBookmark() {
     found.value = false;
-    if (watchLater.isNotEmpty) {
-      watchLater.forEach((element) {
-        if (element == nowShow.value) found.value = true;
+    if (shows.isNotEmpty) {
+      shows.keys.forEach((element) {
+        if (element == nowShow.value.id) found.value = true;
       });
     }
   }

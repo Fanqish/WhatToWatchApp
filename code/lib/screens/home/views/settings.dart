@@ -12,7 +12,10 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     //Donot Care
     double screenHeight = Get.context.height - kBottomNavigationBarHeight;
-    double settingsTitleContainerHeight = screenHeight * .15;
+    double settingsTitleContainerHeight =
+        Get.context.orientation == Orientation.portrait
+            ? screenHeight * .15
+            : Get.context.width * .1;
     // //Donot Care
     return Column(
       // fit: StackFit.expand,

@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:get/get.dart';
-import 'package:photo_view/photo_view.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ShowView extends GetView<AppController> {
@@ -129,9 +128,8 @@ class ShowView extends GetView<AppController> {
                       ],
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 40.0,
-                      ),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 40.0, vertical: 30),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
@@ -178,21 +176,17 @@ class ShowView extends GetView<AppController> {
                             return Builder(
                               builder: (BuildContext context) {
                                 return Container(
-                                  height: Get.context.height * .3,
+                                  height: Get.context.orientation ==
+                                          Orientation.portrait
+                                      ? Get.context.height * .3
+                                      : Get.context.height * .6,
+
                                   clipBehavior: Clip.antiAliasWithSaveLayer,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10)),
                                   // height: Get.context.height * .3,
                                   child: GestureDetector(
-                                    onTap: () =>
-                                        navigator.push(MaterialPageRoute(
-                                      settings: RouteSettings(name: "image"),
-                                      builder: (context) {
-                                        return PhotoView(
-                                            imageProvider: NetworkImage(
-                                                anyImgUrl + i["file_path"]));
-                                      },
-                                    )),
+                                    onTap: () => openFullImage(i["file_path"]),
                                     child: Image.network(
                                       anyImgUrl + i["file_path"],
                                       fit: BoxFit.cover,
@@ -212,10 +206,15 @@ class ShowView extends GetView<AppController> {
                             );
                           }).toList(),
                           options: CarouselOptions(
-                            height: Get.context.height * .4,
-
+                            height:
+                                Get.context.orientation == Orientation.portrait
+                                    ? Get.context.height * .4
+                                    : Get.context.height * .6,
                             aspectRatio: 16 / 9,
-                            viewportFraction: 0.8,
+                            viewportFraction:
+                                Get.context.orientation == Orientation.portrait
+                                    ? .8
+                                    : .6,
                             initialPage: 0,
                             reverse: false,
                             autoPlay: true,
