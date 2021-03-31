@@ -47,6 +47,7 @@ class WatchLaterView extends GetView<AppController> {
                   itemCount: box.length,
                   itemBuilder: (context, index) {
                     var theshow = Show.fromJson(box.getAt(index));
+
                     return Container(
                       margin: EdgeInsets.symmetric(vertical: 20),
                       child: Flex(
@@ -54,28 +55,20 @@ class WatchLaterView extends GetView<AppController> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Container(
-                              height: Get.context.height * .30,
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10)),
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              height: Get.context.height * .30,
                               child: CachedNetworkImage(
+                                progressIndicatorBuilder:
+                                    (context, url, downloadProgress) => Center(
+                                  child: CircularProgressIndicator(
+                                      value: downloadProgress.progress),
+                                ),
                                 imageUrl: theshow.poster,
                                 errorWidget: (context, url, error) =>
                                     Icon(Icons.error),
                               ),
-
-                              // child: Image.network(
-                              //   theshow.poster,
-                              //   loadingBuilder:
-                              //       (context, child, loadingProgress) {
-                              //     if (loadingProgress != null)
-                              //       return Container();
-                              //     return FadeIn(
-                              //       duration: 1.seconds,
-                              //       child: child,
-                              //     );
-                              //   },
-                              // ),
                             ),
                             Expanded(
                               child: Container(

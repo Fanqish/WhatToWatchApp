@@ -15,23 +15,33 @@ class ShowView extends GetView<AppController> {
   Widget build(BuildContext context) {
     return Obx(
       () => !controller.internet.value
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.wifi_off_rounded,
-                  size: 150,
+          ? Expanded(
+              child: InkWell(
+                onTap: () {
+                  checkInternet();
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.wifi_off_rounded,
+                      size: 150,
+                    ),
+                    Center(
+                        child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: AutoSizeText(
+                        "Please Check Your Internet",
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ))
+                  ],
                 ),
-                Center(
-                    child: AutoSizeText(
-                  "Please Check Your Internet",
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ))
-              ],
+              ),
             )
           : !controller.ready.value
               ? Center(
