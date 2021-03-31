@@ -13,37 +13,37 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 class WatchLaterView extends GetView<AppController> {
   @override
   Widget build(BuildContext context) {
-    return shows.isEmpty
-        ? FadeIn(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(Icons.bookmark_rounded,
-                    size: 150,
-                    color: Get.isDarkMode
-                        ? Colors.white
-                        : context.theme.accentColor),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  child: Center(
-                      child: AutoSizeText(
-                    "Click On Bookmark Button In Home Screen To Save Movies / TV Show In Your Watch Later Collection",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  )),
-                )
-              ],
-            ),
-          )
-        : Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
-            child: ValueListenableBuilder(
-              valueListenable: shows.listenable(),
-              builder: (context, Box box, child) => ListView.builder(
+    return ValueListenableBuilder(
+      valueListenable: shows.listenable(),
+      builder: (context, Box box, child) => shows.isEmpty
+          ? FadeIn(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(Icons.bookmark_rounded,
+                      size: 150,
+                      color: Get.isDarkMode
+                          ? Colors.white
+                          : context.theme.accentColor),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 15),
+                    child: Center(
+                        child: AutoSizeText(
+                      "Click On Bookmark Button In Home Screen To Save Movies / TV Show In Your Watch Later Collection",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )),
+                  )
+                ],
+              ),
+            )
+          : Container(
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              child: ListView.builder(
                   itemCount: box.length,
                   itemBuilder: (context, index) {
                     var theshow = Show.fromJson(box.getAt(index));
@@ -115,6 +115,6 @@ class WatchLaterView extends GetView<AppController> {
                     );
                   }),
             ),
-          );
+    );
   }
 }

@@ -196,7 +196,8 @@ class ShowView extends GetView<AppController> {
                                       borderRadius: BorderRadius.circular(10)),
                                   // height: Get.context.height * .3,
                                   child: GestureDetector(
-                                    onTap: () => openFullImage(i["file_path"]),
+                                    onTap: () => openFullImage(
+                                        anyImgUrl + i["file_path"]),
                                     child: Image.network(
                                       anyImgUrl + i["file_path"],
                                       fit: BoxFit.cover,
