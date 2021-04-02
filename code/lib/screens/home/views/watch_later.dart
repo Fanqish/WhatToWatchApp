@@ -42,14 +42,12 @@ class WatchLaterView extends GetView<AppController> {
               ),
             )
           : Container(
-              margin: EdgeInsets.symmetric(horizontal: 10),
               child: ListView.builder(
                   itemCount: box.length,
                   itemBuilder: (context, index) {
                     var theshow = Show.fromJson(box.getAt(index));
-
                     return Container(
-                      margin: EdgeInsets.symmetric(vertical: 20),
+                      margin: EdgeInsets.all(15),
                       child: Flex(
                           direction: Axis.horizontal,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -103,7 +101,9 @@ class WatchLaterView extends GetView<AppController> {
                               ),
                             ),
                             IconButton(
-                              color: Get.context.theme.accentColor,
+                              color: Get.isDarkMode
+                                  ? Colors.white
+                                  : Get.context.theme.accentColor,
                               icon: Icon(Icons.delete),
                               iconSize: 30,
                               onPressed: () {

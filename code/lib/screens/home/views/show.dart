@@ -33,8 +33,8 @@ class ShowView extends GetView<AppController> {
                       padding: const EdgeInsets.all(15),
                       child: AutoSizeText(
                         "Please Check Your Internet",
+                        minFontSize: 30,
                         style: TextStyle(
-                          fontSize: 30,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -44,10 +44,7 @@ class ShowView extends GetView<AppController> {
               ),
             )
           : !controller.ready.value
-              ? Center(
-                  child: InkWell(
-                      onTap: () => controller.getShow(),
-                      child: CircularProgressIndicator()))
+              ? Center(child: CircularProgressIndicator())
               : ListView(
                   children: <Widget>[
                     Stack(

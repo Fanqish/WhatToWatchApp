@@ -49,3 +49,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// TODO: Add Rate App
+// TODO: Add App Intro 

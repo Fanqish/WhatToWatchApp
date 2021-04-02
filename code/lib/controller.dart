@@ -22,7 +22,7 @@ class AppController extends GetxController {
     String randomizeTVMovie = Random().nextBool() ? "movie" : "tv";
 
     String requestRandomMovieTV =
-        "https://api.themoviedb.org/3/discover/$randomizeTVMovie?api_key=d8d321f34976f15bf821ff5fa09c88bc&sort_by=popularity.desc&include_adult=false&page=${Random().nextInt(500)}";
+        "https://api.themoviedb.org/3/discover/$randomizeTVMovie?api_key=d8d321f34976f15bf821ff5fa09c88bc&sort_by=popularity.desc&include_adult=false&page=${Random().nextInt(101)}";
 
     var random = await ((await GetConnect().get(requestRandomMovieTV))
         ?.body)["results"][Random().nextInt(20)];
