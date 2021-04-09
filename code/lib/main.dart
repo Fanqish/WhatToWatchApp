@@ -50,5 +50,10 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// TODO: Add Rate App
-// TODO: Add App Intro 
+// TODO: Add Rate App https://pub.dev/packages/rate_my_app + emoji_feedback
+// TODO: Add App Intro https://pub.dev/packages/intro_views_flutter
+// TODO: Animated List >>
+// TODO: Yotube Plyr >> https://pub.dev/packages/youtube_plyr_iframe
+// TODO: Add Analytics >> https://pub.dev/packages/usage
+// TODO: Add ExpansionPanel To Show Description
+// 

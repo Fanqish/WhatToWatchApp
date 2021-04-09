@@ -30,7 +30,7 @@ class WatchLaterView extends GetView<AppController> {
                     margin: EdgeInsets.symmetric(horizontal: 15),
                     child: Center(
                         child: AutoSizeText(
-                      "Click On Bookmark Button In Home Screen To Save Movies / TV Show In Your Watch Later Collection",
+                      "Click On Bookmark Button In Home Screen To Save Movies / TV Shows In Your Watch Later List",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 30,

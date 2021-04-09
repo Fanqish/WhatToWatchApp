@@ -18,6 +18,8 @@ void checkInternet() async {
     try {
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        if (!Get.find<AppController>().internet.value)
+          Get.find<AppController>().getShow();
         Get.find<AppController>().internet.value = true;
       }
     } on SocketException catch (_) {

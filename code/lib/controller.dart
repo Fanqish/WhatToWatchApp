@@ -69,7 +69,6 @@ class AppController extends GetxController {
       shows.delete(nowShow.value.id);
     } else {
       shows.put(nowShow.value.id, nowShow.value.toJson());
-      // downloadPoster();
     }
     checkBookmark();
   }
