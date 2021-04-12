@@ -1,12 +1,12 @@
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:code/models/show_model.dart';
+import '../../../models/show_model.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:code/controller.dart';
-import 'package:code/utils/database.dart';
+import '../../../controller.dart';
+import '../../../utils/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:get/get.dart';

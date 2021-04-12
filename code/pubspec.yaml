@@ -1,9 +1,9 @@
-name: code
-description: A new Flutter project.
+name: whattowatch
+description: random movie and tv show generatror
 
 publish_to: "none"
 
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -44,7 +44,7 @@ flutter_icons:
 # Run >>> flutter pub run flutter_native_splash:create
 flutter_native_splash:
   color: "#6C5CD5"
-  image: splash.png
+  image: Splash.png
   color_dark: "#303030"
   image_dark: Splash.png
   android: true

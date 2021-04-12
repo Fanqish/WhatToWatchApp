@@ -1,6 +1,6 @@
-import 'package:code/screens/home/views/show.dart';
-import 'package:code/screens/home/views/settings.dart';
-import 'package:code/screens/home/views/watch_later.dart';
+import 'views/show.dart';
+import 'views/settings.dart';
+import 'views/watch_later.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

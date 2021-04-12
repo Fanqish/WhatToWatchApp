@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'dart:convert';
 import 'dart:io';
-import 'package:code/consts/global.dart';
+import '../lib/consts/global.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'dart:typed_data';

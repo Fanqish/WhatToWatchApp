@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:code/controller.dart';
+import '../controller.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 // import 'package:flutter/material.dart';

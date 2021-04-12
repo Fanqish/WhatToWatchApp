@@ -1,9 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:code/consts/global.dart';
-import 'package:code/controller.dart';
-import 'package:code/utils/online.dart';
-import 'package:code/widgets/photo_image.dart';
+import '../../../consts/global.dart';
+import '../../../controller.dart';
+import '../../../utils/online.dart';
+import '../../../widgets/photo_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';

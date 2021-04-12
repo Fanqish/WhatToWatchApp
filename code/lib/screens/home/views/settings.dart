@@ -1,7 +1,7 @@
-import 'package:code/consts/global.dart';
-import 'package:code/consts/themes.dart';
-import 'package:code/utils/database.dart';
-import 'package:code/utils/online.dart';
+import '../../../consts/global.dart';
+import '../../../consts/themes.dart';
+import '../../../utils/database.dart';
+import '../../../utils/online.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
