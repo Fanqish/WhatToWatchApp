@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:code/models/show_model.dart';
 import 'package:hive/hive.dart';
@@ -42,79 +44,97 @@ class WatchLaterView extends GetView<AppController> {
               ),
             )
           : Container(
-              child: ListView.builder(
-                  itemCount: box.length,
-                  itemBuilder: (context, index) {
-                    var theshow = Show.fromJson(box.getAt(index));
-                    return Container(
-                      margin: EdgeInsets.all(15),
-                      child: Flex(
-                          direction: Axis.horizontal,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10)),
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              height: Get.context.height * .30,
-                              child: CachedNetworkImage(
-                                progressIndicatorBuilder:
-                                    (context, url, downloadProgress) => Center(
-                                  child: CircularProgressIndicator(
-                                      value: downloadProgress.progress),
-                                ),
-                                imageUrl: theshow.poster,
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                margin: EdgeInsets.all(5),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Center(
-                                      child: AutoSizeText(
-                                        theshow.title,
-                                        minFontSize: 20.0,
-                                        softWrap: true,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                    SizedBox(height: 10.0),
-                                    SmoothStarRating(
-                                      rating: theshow.rate / 2,
-                                      color: Get.context.theme.accentColor,
-                                      isReadOnly: true,
-                                      borderColor:
-                                          Get.context.theme.accentColor,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            IconButton(
-                              color: Get.isDarkMode
-                                  ? Colors.white
-                                  : Get.context.theme.accentColor,
-                              icon: Icon(Icons.delete),
-                              iconSize: 30,
-                              onPressed: () {
-                                shows.delete(theshow.id);
-                                controller.checkBookmark();
-                              },
-                            )
-                          ]),
-                    );
-                  }),
-            ),
+              child: AnimatedList(
+              initialItemCount: box.length,
+              itemBuilder: (context, index, animation) {
+                Show theshow = Show.fromJson(box.getAt(index));
+                return laterShow(context, index, animation, theshow);
+              },
+            )),
     );
   }
+}
+
+Widget laterShow(BuildContext context, int index, Animation<double> animation,
+    Show theshow) {
+  return SizeTransition(
+    sizeFactor: animation,
+    child: FadeTransition(
+      opacity: animation,
+      child: Container(
+        margin: EdgeInsets.all(15),
+        child: Flex(
+            direction: Axis.horizontal,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                height: Get.context.height * .30,
+                child: CachedNetworkImage(
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      Center(
+                    child: CircularProgressIndicator(
+                        value: downloadProgress.progress),
+                  ),
+                  imageUrl: theshow.poster,
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.all(5),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Center(
+                        child: AutoSizeText(
+                          theshow.title,
+                          minFontSize: 20.0,
+                          softWrap: true,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      SizedBox(height: 10.0),
+                      SmoothStarRating(
+                        rating: theshow.rate / 2,
+                        color: Get.context.theme.accentColor,
+                        isReadOnly: true,
+                        borderColor: Get.context.theme.accentColor,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              IconButton(
+                color: Get.isDarkMode
+                    ? Colors.white
+                    : Get.context.theme.accentColor,
+                icon: Icon(Icons.delete),
+                iconSize: 30,
+                onPressed: () async {
+                  AnimatedList.of(context).removeItem(
+                      index,
+                      (context, animation) =>
+                          laterShow(context, index, animation, theshow));
+                  if (shows.length > 1)
+                    shows.delete(theshow.id);
+                  else {
+                    await Future.delayed(250.milliseconds, () {
+                      shows.delete(theshow.id);
+                    });
+                  }
+                  Get.find<AppController>().checkBookmark();
+                },
+              )
+            ]),
+      ),
+    ),
+  );
 }

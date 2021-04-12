@@ -23,10 +23,11 @@ class ShowView extends GetView<AppController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.wifi_off_rounded,
-                    size: 150,
-                  ),
+                  Icon(Icons.wifi_off_rounded,
+                      size: 150,
+                      color: Get.isDarkMode
+                          ? Colors.white
+                          : context.theme.accentColor),
                   Center(
                       child: Padding(
                     padding: const EdgeInsets.all(15),
@@ -45,6 +46,7 @@ class ShowView extends GetView<AppController> {
           : !controller.ready.value
               ? Center(child: CircularProgressIndicator())
               : FadeIn(
+                  duration: 350.milliseconds,
                   child: ListView(
                     children: <Widget>[
                       Stack(
@@ -57,7 +59,10 @@ class ShowView extends GetView<AppController> {
                                   blurRadius: 50,
                                   color: Colors.black12)
                             ]),
-                            height: Get.context.height * .6,
+                            height:
+                                Get.context.orientation == Orientation.portrait
+                                    ? Get.context.height * .6
+                                    : Get.context.width * .4,
                             transform:
                                 Matrix4.translationValues(0.0, -50.0, 0.0),
                             child: GestureDetector(
@@ -74,7 +79,7 @@ class ShowView extends GetView<AppController> {
                                     if (loadingProgress != null)
                                       return Container();
                                     return FadeIn(
-                                      duration: 500.milliseconds,
+                                      duration: 350.milliseconds,
                                       child: child,
                                     );
                                   },
@@ -91,7 +96,8 @@ class ShowView extends GetView<AppController> {
                                 elevation: 12.0,
                                 onPressed: () => openURL(
                                     "https://www.youtube.com/results?search_query=" +
-                                        controller.nowShow.value.title +
+                                        controller.nowShow.value.title
+                                            .split("(")[0] +
                                         " Trailer"),
                                 shape: CircleBorder(),
                                 fillColor: Get.isDarkMode
@@ -143,8 +149,8 @@ class ShowView extends GetView<AppController> {
                           children: <Widget>[
                             AutoSizeText(
                               controller.nowShow.value.title,
+                              minFontSize: 30,
                               style: TextStyle(
-                                fontSize: 30,
                                 fontWeight: FontWeight.bold,
                               ),
                               textAlign: TextAlign.center,
@@ -170,9 +176,8 @@ class ShowView extends GetView<AppController> {
                             Opacity(
                               opacity: .75,
                               child: AutoSizeText(
-                                controller.nowShow.value.overview,
-                                style: TextStyle(fontSize: 16),
-                              ),
+                                  controller.nowShow.value.overview,
+                                  style: TextStyle(fontSize: 16)),
                             ),
                           ],
                         ),

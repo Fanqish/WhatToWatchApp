@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:get/get.dart';
 import 'consts/global.dart';
 import 'models/show_model.dart';
+import 'screens/home/views/watch_later.dart';
 import 'utils/database.dart';
 import 'utils/online.dart';
 
@@ -18,31 +19,31 @@ class AppController extends GetxController {
   void getShow() async {
     bool error = false;
     ready.value = false;
+
     checkInternet();
+
     String randomizeTVMovie = Random().nextBool() ? "movie" : "tv";
-
-    String requestRandomMovieTV =
-        "https://api.themoviedb.org/3/discover/$randomizeTVMovie?api_key=d8d321f34976f15bf821ff5fa09c88bc&sort_by=popularity.desc&include_adult=false&page=${Random().nextInt(101)}";
-
-    var random = await ((await GetConnect().get(requestRandomMovieTV))
-        ?.body)["results"][Random().nextInt(20)];
-
-    String requestScreenshots =
-        "https://api.themoviedb.org/3/$randomizeTVMovie/${random["id"]}/images?api_key=d8d321f34976f15bf821ff5fa09c88bc";
-
-    screenshots = jsonDecode(
-        (await GetConnect().get(requestScreenshots)).bodyString)["backdrops"];
-
     try {
+      var random = await ((await GetConnect().get(
+              "https://api.themoviedb.org/3/discover/$randomizeTVMovie?api_key=d8d321f34976f15bf821ff5fa09c88bc&sort_by=popularity.desc&include_adult=false&page=${Random().nextInt(101)}"))
+          ?.body)["results"][Random().nextInt(20)];
+
+      screenshots = jsonDecode((await GetConnect().get(
+              "https://api.themoviedb.org/3/$randomizeTVMovie/${random["id"]}/images?api_key=d8d321f34976f15bf821ff5fa09c88bc"))
+          .bodyString)["backdrops"];
+
       nowShow(Show(
           id: random["id"],
           title: (random["title"] ??
                   random["name"] ??
                   random["original_name"] ??
                   random["original_name"]) +
+              " (" +
               (random["original_language"] != null
-                  ? " [${random["original_language"]}]".toUpperCase()
-                  : ""),
+                  ? "${random["original_language"]}".toUpperCase()
+                  : "") +
+              " ${randomizeTVMovie == "movie" ? randomizeTVMovie.capitalize : randomizeTVMovie.toUpperCase()}" +
+              ")",
           rate: random["vote_average"] ?? 0.0,
           poster:
               random["poster_path"] != null || random["poster_path"] != "null"
@@ -56,6 +57,7 @@ class AppController extends GetxController {
               ? random["overview"]
               : "Show Description Not Found"));
     } catch (e) {
+      print(e);
       error = true;
       getShow();
     } finally {

@@ -130,7 +130,7 @@ class SettingsView extends StatelessWidget {
               LinkListTile("Suggest A Feature ", Icons.featured_play_list,
                   AppUrls.support),
               LinkListTile(
-                  "Privay Policy", Icons.privacy_tip_rounded, AppUrls.privacy),
+                  "Privacy Policy", Icons.privacy_tip_rounded, AppUrls.privacy),
             ],
           ),
         )
@@ -149,7 +149,7 @@ class LinkListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: (Text(title, style: settingTextTheme)),
+      title: (Text(title.capitalize, style: settingTextTheme)),
       onTap: () => link == "share"
           ? Share.share(
               "Feel Bored And Want To Watch Something Awesome. Check ${AppUrls.rate}")
