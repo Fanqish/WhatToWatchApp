@@ -44,7 +44,10 @@ class ShowView extends GetView<AppController> {
               ),
             )
           : !controller.ready.value
-              ? Center(child: CircularProgressIndicator())
+              ? Center(
+                  child: CircularProgressIndicator(
+                  color: context.theme.colorScheme.secondary,
+                ))
               : FadeIn(
                   duration: 350.milliseconds,
                   child: ListView(
