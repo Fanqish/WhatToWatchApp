@@ -27,7 +27,7 @@ class ShowView extends GetView<AppController> {
                       size: 150,
                       color: Get.isDarkMode
                           ? Colors.white
-                          : context.theme.accentColor),
+                          : context.theme.colorScheme.secondary),
                   Center(
                       child: Padding(
                     padding: const EdgeInsets.all(15),
@@ -44,7 +44,10 @@ class ShowView extends GetView<AppController> {
               ),
             )
           : !controller.ready.value
-              ? Center(child: CircularProgressIndicator())
+              ? Center(
+                  child: CircularProgressIndicator(
+                  color: context.theme.colorScheme.secondary,
+                ))
               : FadeIn(
                   duration: 350.milliseconds,
                   child: ListView(
@@ -101,13 +104,13 @@ class ShowView extends GetView<AppController> {
                                         " Trailer"),
                                 shape: CircleBorder(),
                                 fillColor: Get.isDarkMode
-                                    ? context.theme.accentColor
+                                    ? context.theme.colorScheme.secondary
                                     : Colors.white,
                                 child: Icon(
                                   Icons.play_arrow_rounded,
                                   size: 60.0,
                                   color: !Get.isDarkMode
-                                      ? context.theme.accentColor
+                                      ? context.theme.colorScheme.secondary
                                       : Colors.white,
                                 ),
                               ),
@@ -123,7 +126,7 @@ class ShowView extends GetView<AppController> {
                                   : Icons.delete),
                               iconSize: 40.0,
                               color: !Get.isDarkMode
-                                  ? Get.context.theme.accentColor
+                                  ? Get.context.theme.colorScheme.secondary
                                   : Colors.white,
                             ),
                           ),
@@ -135,7 +138,7 @@ class ShowView extends GetView<AppController> {
                               icon: Icon(Icons.arrow_forward_ios),
                               iconSize: 35.0,
                               color: !Get.isDarkMode
-                                  ? Get.context.theme.accentColor
+                                  ? Get.context.theme.colorScheme.secondary
                                   : Colors.white,
                             ),
                           ),
@@ -167,8 +170,8 @@ class ShowView extends GetView<AppController> {
                             // ),
                             SmoothStarRating(
                               size: 30,
-                              color: Get.context.theme.accentColor,
-                              borderColor: context.theme.accentColor,
+                              color: Get.context.theme.colorScheme.secondary,
+                              borderColor: context.theme.colorScheme.secondary,
                               rating: controller.nowShow.value.rate / 2,
                               isReadOnly: true,
                             ),
