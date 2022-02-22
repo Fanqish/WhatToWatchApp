@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'consts/themes.dart';
 import 'consts/global.dart';
@@ -20,8 +19,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setApplicationSwitcherDescription(
         ApplicationSwitcherDescription(
-            primaryColor: context.theme.accentColor.value, label: kAppName));
-    SystemChrome.setEnabledSystemUIOverlays([]);
+            primaryColor: context.theme.colorScheme.secondary.value,
+            label: kAppName));
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return ValueListenableBuilder(
       valueListenable: settings.listenable(),
       builder: (context, box, child) {
@@ -31,8 +31,9 @@ class MyApp extends StatelessWidget {
                     defaultValue: defaultMainColor))),
                 primaryColorLight: Color((settings.get("mainColor",
                     defaultValue: defaultMainColor))),
-                accentColor: Color((settings.get("mainColor",
-                    defaultValue: defaultMainColor))),
+                colorScheme: ColorScheme.fromSwatch().copyWith(
+                    secondary: Color((settings.get("mainColor",
+                        defaultValue: defaultMainColor)))),
               ),
           darkTheme: Themes().dark,
           themeMode: (box.get("isdark",

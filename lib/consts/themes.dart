@@ -14,14 +14,15 @@ class Themes {
           Color((settings.get("mainColor", defaultValue: defaultMainColor))),
       primaryColorLight:
           Color((settings.get("mainColor", defaultValue: defaultMainColor))),
-      accentColor:
-          Color((settings.get("mainColor", defaultValue: defaultMainColor))),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         showSelectedLabels: false,
         selectedItemColor: Colors.white,
         showUnselectedLabels: false,
         unselectedItemColor: Colors.white60,
-      ));
+      ),
+      colorScheme: ColorScheme.fromSwatch().copyWith(
+          secondary: Color(
+              (settings.get("mainColor", defaultValue: defaultMainColor)))));
   final dark = ThemeData.dark().copyWith(
       textTheme: GoogleFonts.robotoTextTheme(ThemeData.dark().textTheme),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(

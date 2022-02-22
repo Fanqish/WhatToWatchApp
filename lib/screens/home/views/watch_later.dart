@@ -1,8 +1,5 @@
-import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../../models/show_model.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import '../../../controller.dart';
@@ -27,7 +24,7 @@ class WatchLaterView extends GetView<AppController> {
                       size: 150,
                       color: Get.isDarkMode
                           ? Colors.white
-                          : context.theme.accentColor),
+                          : context.theme.colorScheme.secondary),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 15),
                     child: Center(
@@ -104,9 +101,9 @@ Widget laterShow(BuildContext context, int index, Animation<double> animation,
                       SizedBox(height: 10.0),
                       SmoothStarRating(
                         rating: theshow.rate / 2,
-                        color: Get.context.theme.accentColor,
+                        color: Get.context.theme.colorScheme.secondary,
                         isReadOnly: true,
-                        borderColor: Get.context.theme.accentColor,
+                        borderColor: Get.context.theme.colorScheme.secondary,
                       ),
                     ],
                   ),
@@ -115,7 +112,7 @@ Widget laterShow(BuildContext context, int index, Animation<double> animation,
               IconButton(
                 color: Get.isDarkMode
                     ? Colors.white
-                    : Get.context.theme.accentColor,
+                    : Get.context.theme.colorScheme.secondary,
                 icon: Icon(Icons.delete),
                 iconSize: 30,
                 onPressed: () async {

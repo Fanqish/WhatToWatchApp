@@ -65,7 +65,7 @@ class SettingsView extends StatelessWidget {
                 },
                 title: (Text("Dark Mode", style: settingTextTheme)),
                 trailing: Switch(
-                  activeColor: Get.context.theme.accentColor,
+                  activeColor: Get.context.theme.colorScheme.secondary,
                   onChanged: (v) {
                     settings.put("isdark", Get.isDarkMode ? false : true);
                     Get.changeThemeMode(
@@ -83,7 +83,7 @@ class SettingsView extends StatelessWidget {
                       contentPadding: const EdgeInsets.all(0.0),
                       content: SingleChildScrollView(
                         child: MaterialPicker(
-                          pickerColor: Get.theme.accentColor,
+                          pickerColor: Get.theme.colorScheme.secondary,
                           onColorChanged: (color) {
                             settings.put("mainColor", color.value);
                             Get.changeTheme(Themes().light.copyWith(
@@ -91,10 +91,9 @@ class SettingsView extends StatelessWidget {
                                       Color((settings.get("mainColor"))),
                                   primaryColorLight: Color((settings.get(
                                     "mainColor",
-                                  ))),
-                                  accentColor: Color((settings.get(
+                                  ))), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Color((settings.get(
                                     "mainColor",
-                                  ))),
+                                  )))),
                                 ));
                           },
                         ),
@@ -113,7 +112,7 @@ class SettingsView extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Get.isDarkMode
                           ? Get.context.theme.disabledColor
-                          : Get.theme.accentColor,
+                          : Get.theme.colorScheme.secondary,
                       borderRadius: BorderRadius.circular(25)),
                 ),
               ),
@@ -158,7 +157,7 @@ class LinkListTile extends StatelessWidget {
         transform: Matrix4.translationValues(-17.5, 0, 0),
         child: Icon(
           icon,
-          color: Get.theme.accentColor,
+          color: Get.theme.colorScheme.secondary,
         ),
       ),
     );
